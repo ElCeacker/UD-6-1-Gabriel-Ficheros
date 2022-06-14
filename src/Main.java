@@ -48,7 +48,8 @@ public class Main {
                     break;
 
                 case "3":
-
+                    F18.toggleLandingGear();
+                    System.out.println(F18);
                     break;
 
                 case "4":

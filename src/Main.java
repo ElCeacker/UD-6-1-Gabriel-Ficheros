@@ -26,6 +26,19 @@ public class Main {
 
             switch (opcion) {
                 case "1":
+                    System.out.print("Introduzca el número de litros de combustible cargados: ");
+                    int nivelCombustible = teclado.nextInt();
+
+                    System.out.print("Introduzca apodo del piloto: ");
+                    String apodoPiloto = teclado.next();
+
+                    System.out.print("Introduzca número de escuadrón: ");
+                    String nEscuadron = teclado.next();
+
+                    F18 = new Plane(nivelCombustible, apodoPiloto, nEscuadron);
+                    F18.toggleFlaps();
+                    F18.setSeatOccupation(true);
+                    System.out.println(F18);
 
                     break;
 

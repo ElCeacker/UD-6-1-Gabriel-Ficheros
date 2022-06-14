@@ -58,7 +58,13 @@ public class Main {
                     break;
 
                 case "5":
+                    if (F18.isEjectionSystem()) {
+                        F18.setSeatOccupation(false);
+                    } else {
+                        System.out.println("El sistema de eyección no está activado");
+                    }
 
+                    System.out.println(F18);
                     break;
 
                 case "Q":

@@ -9,6 +9,34 @@ public class Main {
         Plane F18 = null;
         boolean entradaWhile = true;
 
+        String fileName = "data/plane.dat";
+        FileInputStream inputFile = null;
+        BufferedInputStream bufferedInput = null;
+        ObjectInputStream objectInput = null;
+
+        try {
+            inputFile = new FileInputStream(fileName);
+            bufferedInput = new BufferedInputStream(inputFile);
+            objectInput = new ObjectInputStream(bufferedInput);
+
+            try {
+                Plane archivito = (Plane) objectInput.readObject();
+                F18 = archivito;
+                while (true) {
+                    System.out.println(archivito);
+                    archivito = (Plane) objectInput.readObject();
+                }
+            } catch (EOFException e) {
+                System.out.println("FIN");
+            }catch (ClassNotFoundException e) {
+                System.out.println("Error al leer el archivo");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("El archivo no se encuentra o no existe");
+        } catch (IOException e) {
+            System.out.println("Error de E/S");
+        }
+
         while (entradaWhile) {
 
             System.out.println("***********************");
@@ -43,33 +71,82 @@ public class Main {
                     break;
 
                 case "2":
-                    F18.toggleFlaps();
-                    System.out.println(F18);
+                    try {
+                        F18.toggleFlaps();
+                        System.out.println(F18);
+
+                    } catch (NullPointerException e) {
+                        System.out.println("El avión F18 aún no esta creado");
+                    }
                     break;
 
                 case "3":
-                    F18.toggleLandingGear();
-                    System.out.println(F18);
+                    try {
+                        F18.toggleLandingGear();
+                        System.out.println(F18);
+
+                    } catch (NullPointerException e) {
+                        System.out.println("El avión F18 aún no esta creado");
+                    }
                     break;
 
                 case "4":
-                    F18.ejectionSystem();
-                    System.out.println(F18);
+                    try {
+                        F18.ejectionSystem();
+                        System.out.println(F18);
+
+                    } catch (NullPointerException e) {
+                        System.out.println("El avión F18 aún no esta creado");
+                    }
                     break;
 
                 case "5":
-                    if (F18.isEjectionSystem()) {
-                        F18.setSeatOccupation(false);
-                    } else {
-                        System.out.println("El sistema de eyección no está activado");
-                    }
+                    try {
+                        assert F18 != null;
+                        if (F18.isEjectionSystem()) {
+                            F18.setSeatOccupation(false);
+                        } else {
+                            System.out.println("El sistema de eyección no está activado");
+                        }
 
-                    System.out.println(F18);
+                        System.out.println(F18);
+
+                    } catch (NullPointerException e) {
+                        System.out.println("El avión F18 aún no esta creado");
+                    }
                     break;
 
                 case "Q":
+                    String fileNames = "data/plane.dat";
+
+                    FileOutputStream outputFile = null;
+                    BufferedOutputStream bufferedOutput = null;
+                    ObjectOutputStream objectOutput = null;
+                    try {
+                        outputFile = new FileOutputStream(fileNames);
+                        bufferedOutput = new BufferedOutputStream(outputFile);
+                        objectOutput = new ObjectOutputStream(bufferedOutput);
+
+                        objectOutput.writeObject(F18);
+                    } catch (FileNotFoundException e) {
+                        System.out.println("El archivo no se encuentra");
+                    } catch (IOException e) {
+                        System.out.println(e);
+                    } finally {
+                        try {
+                            if (objectOutput != null) objectOutput.close();
+                            if (bufferedOutput != null) bufferedOutput.close();
+                            if (outputFile != null) outputFile.close();
+                        } catch (IOException e) {
+                            System.out.println("Error al cerrar los Streams");
+                        }
+                    }
+
                     entradaWhile = false;
                     break;
+
+                default:
+                    System.out.println("No es una opción válida");
             }
         }
     }

@@ -9,6 +9,34 @@ public class Main {
         Plane F18 = null;
         boolean entradaWhile = true;
 
+        String fileName = "data/plane.dat";
+        FileInputStream inputFile = null;
+        BufferedInputStream bufferedInput = null;
+        ObjectInputStream objectInput = null;
+
+        try {
+            inputFile = new FileInputStream(fileName);
+            bufferedInput = new BufferedInputStream(inputFile);
+            objectInput = new ObjectInputStream(bufferedInput);
+
+            try {
+                Plane archivito = (Plane) objectInput.readObject();
+                F18 = archivito;
+                while (true) {
+                    System.out.println(archivito);
+                    archivito = (Plane) objectInput.readObject();
+                }
+            } catch (EOFException e) {
+                System.out.println("FIN");
+            }catch (ClassNotFoundException e) {
+                System.out.println("Error al leer el archivo");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("El archivo no se encuentra o no existe");
+        } catch (IOException e) {
+            System.out.println("Error de E/S");
+        }
+
         while (entradaWhile) {
 
             System.out.println("***********************");
@@ -68,6 +96,31 @@ public class Main {
                     break;
 
                 case "Q":
+                    String fileNames = "data/plane.dat";
+
+                    FileOutputStream outputFile = null;
+                    BufferedOutputStream bufferedOutput = null;
+                    ObjectOutputStream objectOutput = null;
+                    try {
+                        outputFile = new FileOutputStream(fileNames);
+                        bufferedOutput = new BufferedOutputStream(outputFile);
+                        objectOutput = new ObjectOutputStream(bufferedOutput);
+
+                        objectOutput.writeObject(F18);
+                    } catch (FileNotFoundException e) {
+                        System.out.println("El archivo no se encuentra");
+                    } catch (IOException e) {
+                        System.out.println(e);
+                    } finally {
+                        try {
+                            if (objectOutput != null) objectOutput.close();
+                            if (bufferedOutput != null) bufferedOutput.close();
+                            if (outputFile != null) outputFile.close();
+                        } catch (IOException e) {
+                            System.out.println("Error al cerrar los Streams");
+                        }
+                    }
+
                     entradaWhile = false;
                     break;
             }

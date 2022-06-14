@@ -43,7 +43,8 @@ public class Main {
                     break;
 
                 case "2":
-
+                    F18.toggleFlaps();
+                    System.out.println(F18);
                     break;
 
                 case "3":

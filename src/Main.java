@@ -53,7 +53,8 @@ public class Main {
                     break;
 
                 case "4":
-
+                    F18.ejectionSystem();
+                    System.out.println(F18);
                     break;
 
                 case "5":

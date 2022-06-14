@@ -34,6 +34,10 @@ public class Plane {
         seatOccupation = pilotSeated;
     }
 
+    public boolean isEjectionSystem() {
+        return ejectionSystem;
+    }
+
     @Override
     public String toString() {
         return "Plane{" +

@@ -71,28 +71,49 @@ public class Main {
                     break;
 
                 case "2":
-                    F18.toggleFlaps();
-                    System.out.println(F18);
+                    try {
+                        F18.toggleFlaps();
+                        System.out.println(F18);
+
+                    } catch (NullPointerException e) {
+                        System.out.println("El avión F18 aún no esta creado");
+                    }
                     break;
 
                 case "3":
-                    F18.toggleLandingGear();
-                    System.out.println(F18);
+                    try {
+                        F18.toggleLandingGear();
+                        System.out.println(F18);
+
+                    } catch (NullPointerException e) {
+                        System.out.println("El avión F18 aún no esta creado");
+                    }
                     break;
 
                 case "4":
-                    F18.ejectionSystem();
-                    System.out.println(F18);
+                    try {
+                        F18.ejectionSystem();
+                        System.out.println(F18);
+
+                    } catch (NullPointerException e) {
+                        System.out.println("El avión F18 aún no esta creado");
+                    }
                     break;
 
                 case "5":
-                    if (F18.isEjectionSystem()) {
-                        F18.setSeatOccupation(false);
-                    } else {
-                        System.out.println("El sistema de eyección no está activado");
-                    }
+                    try {
+                        assert F18 != null;
+                        if (F18.isEjectionSystem()) {
+                            F18.setSeatOccupation(false);
+                        } else {
+                            System.out.println("El sistema de eyección no está activado");
+                        }
 
-                    System.out.println(F18);
+                        System.out.println(F18);
+
+                    } catch (NullPointerException e) {
+                        System.out.println("El avión F18 aún no esta creado");
+                    }
                     break;
 
                 case "Q":
@@ -123,6 +144,9 @@ public class Main {
 
                     entradaWhile = false;
                     break;
+
+                default:
+                    System.out.println("No es una opción válida");
             }
         }
     }
